@@ -3,11 +3,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 import { AppProvider } from './context/AppContext';
+import Budget from './components/Budget';
 import Spent from './components/Spent';
 import Remaining from './components/Remaining';
 import AllocationList from './components/AllocationList';
-import ItemSelected from './components/ItemSelected';
-import Budget from './components/Budget';
+import ChangeAlloc from './components/ChangeAlloc';
 
 const App = () => {
     return (
@@ -34,7 +34,7 @@ const App = () => {
                 <h3 className='mt-3'>Change allocation</h3>
                 <div className='row mt-3'>
                     <div className='col-sm'>
-                        <ItemSelected/>
+                        <ChangeAlloc/>
                     </div>
                 </div>
             </div>
