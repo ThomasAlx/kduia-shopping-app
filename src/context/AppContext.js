@@ -6,12 +6,12 @@ export const AppReducer = (state, action) => {
     switch (action.type) {
         case 'ADD_QUANTITY':
             let updatedqty = false;
-            state.allocations.map((expense)=>{
-                if(expense.name === action.payload.name) {
-                    expense.quantity = expense.quantity + action.payload.quantity;
+            state.allocations.map((allocation) => {
+                if (allocation.name === action.payload.name) {
+                    allocation.allocBudget = allocation.allocBudget + action.payload.quantity;
                     updatedqty = true;
                 }
-                new_allocations.push(expense);
+                new_allocations.push(allocation);
                 return true;
             })
             state.allocations = new_allocations;
@@ -20,24 +20,24 @@ export const AppReducer = (state, action) => {
                 ...state,
             };
 
-            case 'RED_QUANTITY':
-                state.allocations.map((expense)=>{
-                    if(expense.name === action.payload.name) {
-                        expense.quantity = expense.quantity - action.payload.quantity;
-                    }
-                    expense.quantity = expense.quantity < 0 ? 0: expense.quantity;
-                    new_allocations.push(expense);
-                    return true;
-                })
-                state.allocations = new_allocations;
-                action.type = "DONE";
-                return {
-                    ...state,
-                };
-        case 'DELETE_ITEM':
-            state.allocations.map((expense)=>{
-                if(expense.name === action.payload.name) {
-                    expense.quantity = 0;
+        case 'RED_QUANTITY':
+            state.allocations.map((allocation) => {
+                if (allocation.name === action.payload.name) {
+                    allocation.allocBudget = allocation.allocBudget - action.payload.quantity;
+                }
+                allocation.quantity = allocation.quantity < 0 ? 0 : allocation.quantity;
+                new_allocations.push(allocation);
+                return true;
+            })
+            state.allocations = new_allocations;
+            action.type = "DONE";
+            return {
+                ...state,
+            };
+        case 'ADD_10':
+            state.allocations.map((expense) => {
+                if (expense.name === action.payload.name) {
+                    expense.allocBudget = expense.allocBudget+10;
                 }
                 new_allocations.push(expense);
                 return true;
@@ -47,7 +47,20 @@ export const AppReducer = (state, action) => {
             return {
                 ...state,
             };
-    case 'CHG_LOCATION':
+        case 'RMV_10':
+            state.allocations.map((expense) => {
+                if (expense.name === action.payload.name) {
+                    expense.allocBudget = expense.allocBudget - 10;
+                }
+                new_allocations.push(expense);
+                return true;
+            })
+            state.allocations = new_allocations;
+            action.type = "DONE";
+            return {
+                ...state,
+            };
+        case 'CHG_LOCATION':
             action.type = "DONE";
             state.Location = action.payload;
             return {
@@ -80,15 +93,15 @@ export const AppProvider = (props) => {
     const [state, dispatch] = useReducer(AppReducer, initialState);
 
     const totalallocations = state.allocations.reduce((total, item) => {
-        return (total = total + (item.unitprice*item.quantity));
+        return (total = total + (item.unitprice * item.quantity));
     }, 0);
-state.CartValue = totalallocations;
+    state.CartValue = totalallocations;
 
     return (
         <AppContext.Provider
             value={{
                 allocations: state.allocations,
-                CartValue: state.CartValue,
+                Budget: state.Budget,
                 dispatch,
                 Location: state.Location
             }}

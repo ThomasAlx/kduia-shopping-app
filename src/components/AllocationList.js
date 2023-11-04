@@ -17,7 +17,7 @@ const AllocationList = () => {
           </thead>
             <tbody>
             {allocations.map((expense) => (
-                <AllocItem id={expense.id} key={expense.id} name={expense.name} unitprice={expense.unitprice} />
+                <AllocItem id={expense.id} key={expense.id} name={expense.name} allocBudget={expense.allocBudget} />
             ))}
             </tbody>
         </table>

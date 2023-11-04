@@ -4,15 +4,26 @@ import { FaPlusCircle } from 'react-icons/fa';
 import { FaMinusCircle } from 'react-icons/fa';
 
 const AllocItem = (props) => {
-    const { dispatch, Location} = useContext(AppContext);
+    const {dispatch} = useContext(AppContext);
 
-    const handleDeleteItem = () => {
+    const add10 = () => {
         const item = {
             name: props.name,
         };
 
         dispatch({
-            type: 'DELETE_ITEM',
+            type: 'ADD_10',
+            payload: item,
+        });
+    };
+
+    const rmv10 = () => {
+        const item = {
+            name: props.name,
+        };
+
+        dispatch({
+            type: 'RMV_10',
             payload: item,
         });
     };
@@ -21,9 +32,9 @@ const AllocItem = (props) => {
     return (
         <tr>
         <td>{props.name}</td>
-        <td> £{parseInt(props.unitprice)}</td>
-        <td><FaPlusCircle size='2.2em' color="green" onClick={handleDeleteItem}></FaPlusCircle></td>
-        <td><FaMinusCircle size='2.2em' color="red" onClick={handleDeleteItem}></FaMinusCircle></td>
+        <td> £{parseInt(props.allocBudget)}</td>
+        <td><FaPlusCircle size='2.2em' color="green" onClick={add10}></FaPlusCircle></td>
+        <td><FaMinusCircle size='2.2em' color="red" onClick={rmv10}></FaMinusCircle></td>
         </tr>
     );
 };
