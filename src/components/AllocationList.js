@@ -3,7 +3,7 @@ import AllocItem from './AllocItem';
 import { AppContext } from '../context/AppContext';
 
 const AllocationList = () => {
-    const { expenses } = useContext(AppContext);
+    const { allocations } = useContext(AppContext);
 
     return (
         <table className='table'>
@@ -16,8 +16,8 @@ const AllocationList = () => {
             </tr>
           </thead>
             <tbody>
-            {expenses.map((expense) => (
-                <AllocItem id={expense.id} key={expense.id} name={expense.name} quantity={expense.quantity} unitprice={expense.unitprice} />
+            {allocations.map((expense) => (
+                <AllocItem id={expense.id} key={expense.id} name={expense.name} unitprice={expense.unitprice} />
             ))}
             </tbody>
         </table>
