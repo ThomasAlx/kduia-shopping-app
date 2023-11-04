@@ -25,7 +25,7 @@ export const AppReducer = (state, action) => {
                 if (allocation.name === action.payload.name) {
                     allocation.allocBudget = allocation.allocBudget - action.payload.quantity;
                 }
-                allocation.quantity = allocation.quantity < 0 ? 0 : allocation.quantity;
+                allocation.allocBudget = allocation.allocBudget < 0 ? 0 : allocation.allocBudget;
                 new_allocations.push(allocation);
                 return true;
             })
@@ -48,11 +48,12 @@ export const AppReducer = (state, action) => {
                 ...state,
             };
         case 'RMV_10':
-            state.allocations.map((expense) => {
-                if (expense.name === action.payload.name) {
-                    expense.allocBudget = expense.allocBudget - 10;
+            state.allocations.map((allocation) => {
+                if (allocation.name === action.payload.name) {
+                    allocation.allocBudget = allocation.allocBudget - 10;
                 }
-                new_allocations.push(expense);
+                allocation.allocBudget = allocation.allocBudget < 0 ? 0 : allocation.allocBudget;
+                new_allocations.push(allocation);
                 return true;
             })
             state.allocations = new_allocations;
