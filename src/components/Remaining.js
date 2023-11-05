@@ -4,7 +4,7 @@ import { AppContext } from '../context/AppContext';
 const Remaining = () => {
     const { allocations } = useContext(AppContext);
     const totalallocations = allocations.reduce((total, item) => {
-        return (total += (item.unitprice * item.quantity));
+        return (total += item.allocBudget);
     }, 0);
 
     return (
