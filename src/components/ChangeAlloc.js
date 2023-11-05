@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { AppContext } from '../context/AppContext';
 
 const ChangeAlloc = (props) => {
-    const { dispatch } = useContext(AppContext);
+    const { dispatch, allocations, Budget } = useContext(AppContext);
 
     const [name, setName] = useState('');
     const [quantity, setQuantity] = useState('');
@@ -22,10 +22,18 @@ const ChangeAlloc = (props) => {
                 payload: item,
             });
         } else {
-            dispatch({
-                type: 'ADD_QUANTITY',
-                payload: item,
-            });
+            const totalallocations = allocations.reduce((total, item) => {return (total += item.allocBudget);}, 0);
+            const newTotalAllocations = totalallocations + item.quantity
+            if (newTotalAllocations <= Budget) 
+            {
+                dispatch({
+                    type: 'ADD_QUANTITY',
+                    payload: item,
+                });
+            } else {
+                window.alert('The value cannot exceed remaining funds ' + String(Budget-totalallocations) + '.');
+            }
+            
         }
     };
 
