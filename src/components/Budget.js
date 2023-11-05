@@ -2,13 +2,22 @@ import React, { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 
 const Budget = () => {
-    const { dispatch } = useContext(AppContext);
+    const { dispatch, allocations } = useContext(AppContext);
 
     const changeBudget = (val) => {
-        dispatch({
-            type: 'CHG_BUDGET',
-            payload: val,
-        })
+        const totalallocations = allocations.reduce((total, item) => {return (total += item.allocBudget);}, 0);
+        if (val < totalallocations) 
+        {
+            window.alert('You cannot reduce the budget value lower than the spending.')
+        }
+        else
+        {
+            dispatch({
+                type: 'CHG_BUDGET',
+                payload: val,
+            })
+        }
+        
     }
 
 
