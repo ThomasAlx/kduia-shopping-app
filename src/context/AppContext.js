@@ -73,6 +73,19 @@ export const AppReducer = (state, action) => {
             return {
                 ...state
             }
+        case 'DELETE_ITEM':
+            state.allocations.map((expense)=>{
+                if(expense.name === action.payload.name) {
+                    expense.allocBudget = 0;
+                }
+                new_allocations.push(expense);
+                return true;
+            })
+            state.allocations = new_allocations;
+            action.type = "DONE";
+            return {
+                ...state,
+            };
         default:
             return state;
     }
@@ -86,7 +99,9 @@ const initialState = {
         { id: "Sales", name: 'Sales', allocBudget: 0 },
         { id: "Human Resource", name: 'Human Resource', allocBudget: 0 },
         { id: "IT", name: 'IT', allocBudget: 0 },
-    ]
+    ],
+    Location: '£',
+    Budget: 2000
 };
 
 // 2. Creates the context this is the thing our components import and use to get the state

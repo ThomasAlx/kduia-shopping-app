@@ -8,6 +8,7 @@ import Spent from './components/Spent';
 import Remaining from './components/Remaining';
 import AllocationList from './components/AllocationList';
 import ChangeAlloc from './components/ChangeAlloc';
+import Location from './components/Location';
 
 const App = () => {
     return (
@@ -23,6 +24,9 @@ const App = () => {
                     </div>
                     <div className='col-sm'>
                         <Spent />
+                    </div>
+                    <div className='col-sm'>
+                        <Location />
                     </div>
                 </div>
                 <h3 className='mt-3'>Allocation</h3>

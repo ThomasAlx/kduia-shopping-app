@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 
 const Budget = () => {
-    const { dispatch, allocations } = useContext(AppContext);
+    const { dispatch, allocations, Location } = useContext(AppContext);
 
     const changeBudget = (val) => {
         const totalallocations = allocations.reduce((total, item) => {return (total += item.allocBudget);}, 0);
@@ -22,7 +22,7 @@ const Budget = () => {
 
 
     return (
-        <div className='alert alert-secondary'> Budget: £{
+        <div className='alert alert-secondary'> Budget: {Location}{
             <input name="Budget" id="Budget" type="number" onChange={event => changeBudget(event.target.value)}>
             </input>
         }
