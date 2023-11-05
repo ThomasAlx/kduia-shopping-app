@@ -67,7 +67,12 @@ export const AppReducer = (state, action) => {
             return {
                 ...state
             }
-
+        case 'CHG_BUDGET':
+            action.type = "DONE";
+            state.Budget = action.payload;
+            return {
+                ...state
+            }
         default:
             return state;
     }
